@@ -6,17 +6,19 @@ using namespace std;
 void DrawStarNew  (int x, int y, int sizeR, COLORREF colorStar);
 void DrawStarBang (int x, int y, int sizeX, int sizeY, COLORREF colorST);
 
-void DrawPlanet (int x, int y, int r, int PosPlanetX, int PosPlanetY, int newR, COLORREF colorPL );
+void DrawPlanet (int x, int y, int placeR, int PosPlanetX, int PosPlanetY, int R, COLORREF colorPL );
 void ThisStart ( );
 void PlanetRotates ( );
+void BackGround ( );
+//void Earth ( );
 
 int main()
     {
 
-    //txClear ();
-
     ThisStart ( );
     PlanetRotates ( );
+    BackGround ( );
+   //Earth ( );
 
     return 0;
     }
@@ -102,12 +104,17 @@ void PlanetRotates ( )
 
         i++;
         }
+
+     for (int t=1; t<=800; t+=5)
+        {
+
+        DrawStarNew (610, 240, 15 + t, RGB ( 90, 170, 255));
+        txSleep ();
+        }
+
      txEnd ();
     }
-/*void Earth ()
-    {
 
-    }*/
 void DrawPlanet (int x, int y, int placeR, int PosPlanetX, int PosPlanetY, int R, COLORREF colorPL )
     {
     txSetColor     (RGB (255, 255,   0));
@@ -122,4 +129,13 @@ void DrawPlanet (int x, int y, int placeR, int PosPlanetX, int PosPlanetY, int R
     txSetFillColor (colorPL);
     txCircle       (PosPlanetX, PosPlanetY,  R);
 
+    }
+void BackGround ( )
+    {
+     txSetFillColor (RGB (128, 255, 255));
+     txRectangle (1, 1, 1199, 350);
+     txClear();
+
+     txSetFillColor (RGB (0, 190 ,50));
+     txRectangle (1, 350, 1199, 799);
     }
