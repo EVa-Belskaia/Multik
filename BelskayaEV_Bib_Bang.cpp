@@ -10,6 +10,9 @@ void DrawPlanet (int x, int y, int placeR, int PosPlanetX, int PosPlanetY, int R
 void ThisStart ( );
 void PlanetRotates ( );
 void BackGround ( );
+void DrawGrass (int x, int y, int SizeX, int SizeY, int wind);
+void DrawTree(int x, int y, int sizeX, int sizeY);
+void RostLes ( );
 //void Earth ( );
 
 int main()
@@ -138,4 +141,76 @@ void BackGround ( )
 
      txSetFillColor (RGB (0, 190 ,50));
      txRectangle (1, 350, 1199, 799);
+     RostLes ( );
     }
+
+//-------
+void RostLes ( )
+    {
+    int t=0;
+    while (t<10)
+        {
+        txSetFillColor (RGB (128, 255, 255));
+        txRectangle (1, 1, 1199, 350);
+        txClear();
+
+        txSetFillColor (RGB (0, 190 ,50));
+        txRectangle (1, 350, 1199, 799);
+
+
+        DrawGrass ( 60, 480, -25 + t*2, 75 - t*8,  15 - (t%3*15));
+        DrawGrass ( 90, 320, -20 + t-t*2, 75 - t*6, -10 + (t%3*10));
+        DrawGrass (410, 580, -10 + t*2, 75 - t*7,  20 - (t%3*20));
+        DrawGrass (600, 420, -20 + t*2, 75 - t*6, -10 + (t%3*10));
+
+        DrawTree(350, 550, -10+t,   -10+t );
+        DrawTree(170, 400, -10+t/2, -10+t/2);
+        DrawTree(200, 700, -10+t, -10 + t+(t/4));
+
+        txSleep (100);
+
+        t++;
+        }
+      }
+//---------
+void DrawGrass (int x, int y, int SizeX, int SizeY, int wind)
+     {
+         txSetFillColor (RGB (0, 77, 19));
+         POINT Tr[]=   {{x-(35+SizeX), y+85}, {x-(44+wind), y+38+SizeY},
+                        {x-(20+SizeX), y+75}, {x+wind, y+SizeY},
+                        {x+10+SizeX, y+75}, {x+40+wind, y+30+SizeY},
+                        {x+20+SizeX, y+85}};
+         txPolygon (Tr, 7);
+     }
+//---------
+void DrawTree(int x, int y, int sizeX, int sizeY)
+        {
+        txSetFillColor (RGB (108, 0, 0));
+        txRectangle (x- 27-sizeX*2, y+32+(32*sizeY/10), x+27+sizeX*2, y);
+
+        txSetColor     (TX_GREY);
+        txSetFillColor (TX_GREEN);
+        POINT e1[]= {{x - 175-(175*sizeX/10), y                     }, {x + 175+(175*sizeX/10), y                     },
+                     {x +  63+( 63*sizeX/10), y -  88-( 88*sizeY/10)}, {x -  63-( 63*sizeX/10), y -  88-( 88*sizeY/10)}};
+
+        POINT e2[]= {{x - 150-(150*sizeX/10), y -  88-( 88*sizeY/10)}, {x + 150+(150*sizeX/10), y -  88-( 88*sizeY/10)},
+                     {x +  27+( 27*sizeX/10), y - 184-(184*sizeY/10)}, {x -  27-( 27*sizeX/10), y - 184-(184*sizeY/10)}};
+
+        POINT e3[]= {{x -  90-( 90*sizeX/10), y - 184-(184*sizeY/10)}, {x +  90+( 90*sizeX/10), y - 184-(184*sizeY/10)},
+                     {x,                      y - 264-(264*sizeY/10)}};
+        txPolygon (e1, 4);
+        txPolygon (e2, 4);
+        txPolygon (e3, 3);
+
+        txSetFillColor (RGB (120, 240, 0));
+        POINT ev1[]={{x -  90-( 90*sizeX/10), y -  24-( 24*sizeY/10)}, {x +  90+( 90*sizeX/10), y -  24-( 24*sizeY/10)},
+                     {x,                      y -  72-(72*sizeY/10)}};
+        POINT ev2[]={{x -  72-( 72*sizeX/10), y - 104-(104*sizeY/10)}, {x +  72+( 72*sizeX/10), y - 104-(104*sizeY/10)},
+                     {x,                      y - 160-(160*sizeY/10)}};
+        POINT ev3[]={{x -  36-( 36*sizeX/10), y - 200-(200*sizeY/10)}, {x +  36+( 36*sizeX/10), y - 200-(200*sizeY/10)},
+                     {x,                      y - 232-(232*sizeY/10)}};
+        txPolygon (ev1, 3);
+        txPolygon (ev2, 3);
+        txPolygon (ev3, 3);
+        }
+//-----------
