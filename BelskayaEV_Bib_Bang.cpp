@@ -1,5 +1,5 @@
-#include <iostream>
 #include "TXLib.h"
+
 
 using namespace std;
 
@@ -17,7 +17,8 @@ void DrawCat(int x, int y, int UpHvost, int GoNose, int sizeLeftEye, int sizeRig
              int LlapkaUp, int RlapkaUp, int Yazik, COLORREF colorCat, COLORREF colorNose, COLORREF colorLapki, COLORREF colorEyes);
 void Les (int wind);
 void GoCat( );
-//void Earth ( );
+void CatWashing ( );
+
 
 int main( )
     {
@@ -34,7 +35,8 @@ int main( )
     txRectangle (1, 350, 1199, 799);
 
     RostLes ( );
-    BackGround ( );
+    //BackGround ( );
+    CatWashing ( );
     //GoCat ( );
     //Earth ( );
 
@@ -155,7 +157,7 @@ void BackGround ()
     txBegin ( );
 
     int i=1;
-    while (i<=150)
+    while (i<=125)
         {
         txSetFillColor (RGB (128, 255, 255));
         txRectangle (1, 1, 1199, 350);
@@ -257,11 +259,50 @@ void DrawTree(int x, int y, int sizeX, int sizeY, int wind)
         txPolygon (ev3, 3);
         }
 //-----------
-/*Void InThePlanet ()
+void CatWashing ( )
     {
+    txBegin ( );
+    int t=1;
+    while (t<20)
+        {
+        txSetFillColor (RGB (128, 255, 255));
+        txRectangle (1, 1, 1199, 350);
+        txClear( );
+        txSetFillColor (RGB (0, 190 ,50));
+        txRectangle (1, 350, 1199, 799);
 
-    }  */
+        Les ((t%3)*8);
 
+        DrawCat (600, 400, 7*(t%2), (t%4), 1, 1, -3+3*(t%2), 3-3*(t%2), 0, 0,
+                  0,    0, 0, TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
+
+        txSleep (100);
+
+        t++;
+        }
+
+    DrawCat     (600, 400, 7,       1,     2, 2,  3,         3,         1, 1,
+                  50,  50, 0, TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
+    txSleep (200);
+    t=21;
+    while (t<40)
+        {
+        txSetFillColor (RGB (128, 255, 255));
+        txRectangle (1, 1, 1199, 350);
+        txClear( );
+        txSetFillColor (RGB (0, 190 ,50));
+        txRectangle (1, 350, 1199, 799);
+
+        Les ((t%3)*8);
+        DrawCat  (600, 400, 7,       1,     2, 2,  3,         3,         1, 1,
+                    0, 45*(t%2), 2*(t%2), TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
+        txSleep (500);
+        t++;
+        }
+    txEnd ( );
+    }
+
+//-----------
 void GoCat( )
     {
     txBegin ();
