@@ -4,27 +4,31 @@
 using namespace std;
 
 void DrawStarNew  (int x, int y, int sizeR, COLORREF colorStar);
-void DrawStarBang (int x, int y, int sizeX, int sizeY, COLORREF colorST);
+void DrawStarBang (int x, int y, int sizeX,  int sizeY, COLORREF colorST);
+void DrawPlanet   (int x, int y, int placeR, int PosPlanetX, int PosPlanetY, int R, COLORREF colorPL );
+void DrawGrass    (int x, int y, int SizeX,  int SizeY, int wind);
+void DrawTree     (int x, int y, int sizeX,  int sizeY, int wind);
+void DrawCat      (int x, int y, int UpHvost,  int GoNose, int sizeLeftEye, int sizeRightEye, int UhoLDown, int UhoRDown,int ZrachkiL, int ZrachkiR,
+                   int LlapkaUp, int RlapkaUp, int Yazik, COLORREF colorCat, COLORREF colorNose, COLORREF colorLapki, COLORREF colorEyes);
+void Bang         (int x, int y, int ShadowX, int ShadowY, const char* text, int sizeChar, int NewSizeCar, COLORREF colorText, COLORREF colorShadow);
+void CatSays (int x, int y, const char* text, int sizeChar, COLORREF colorText);
+void Les          (int wind);
+void TitrNachalo    ( );
+void ThisStart      ( );
+void PlanetRotates  ( );
+void BackGround     ( );
+void CatHello       ( );
+void RostLes        ( );
+void GoCat          ( );
+void CatWashing     ( );
 
-void DrawPlanet (int x, int y, int placeR, int PosPlanetX, int PosPlanetY, int R, COLORREF colorPL );
-void ThisStart ( );
-void PlanetRotates ( );
-void BackGround ( );
-void DrawGrass (int x, int y, int SizeX, int SizeY, int wind);
-void DrawTree(int x, int y, int sizeX, int sizeY, int wind);
-void RostLes ( );
-void DrawCat(int x, int y, int UpHvost, int GoNose, int sizeLeftEye, int sizeRightEye, int UhoLDown, int UhoRDown,int ZrachkiL, int ZrachkiR,
-             int LlapkaUp, int RlapkaUp, int Yazik, COLORREF colorCat, COLORREF colorNose, COLORREF colorLapki, COLORREF colorEyes);
-void Les (int wind);
-void GoCat( );
-void CatWashing ( );
-
-
+//-------------------------------------------------------------------------
 int main( )
     {
     txCreateWindow (1200, 800);
+    txSetFillColor (RGB (85, 70, 145));
 
-
+    //TitrNachalo ();
     //ThisStart ( );
     //PlanetRotates ( );
 
@@ -34,13 +38,25 @@ int main( )
     txSetFillColor (RGB (0, 190 ,50));
     txRectangle (1, 350, 1199, 799);
 
-    RostLes ( );
-    //BackGround ( );
+    //RostLes ( );
+    CatHello   ( );
     CatWashing ( );
-    //GoCat ( );
-    //Earth ( );
+    GoCat      ( );
 
     return 0;
+    }
+//--------------------------------------------------------------------------------------------------------
+void TitrNachalo ()
+    {
+    txBegin ( );
+    for (int t = 0; t<=20; t++)
+        {
+        txClear ( );
+        Bang (1+t*10, 1+t*10, 1+t*10, 1+t*10, "The Big Bang teory", 30+t*4, 0, TX_YELLOW, TX_BROWN);
+        txSleep (50);
+        }
+    txEnd ( );
+    txSleep (1000);
     }
 //--------------------------------------------------------------------------------------------------------
 void ThisStart ( )
@@ -67,16 +83,19 @@ void ThisStart ( )
     for (i=25; i<800; i+=20)
         {
          DrawStarBang (555, 502, 150 + i*2, 150 + i*2, TX_YELLOW);
+         Bang (550-i, 400-(i/4), 546-i, 404-(i/4), "Bang!!!", 30 + i/2, 0, TX_YELLOW, TX_BROWN);
          if (i>100)
              {
-             DrawStarBang (590, 395,  50 + i*2,  30 + i*2, TX_RED);
+             DrawStarBang (590, 395,  50 + i*2,  30 + (i/2)*2, TX_RED);
+             Bang (550-i/2, 400+(i/4), 546-i/2, 404+(i/4), "Bang!!!", 30 + i, 0, TX_YELLOW, TX_BROWN);
              if (i>200)
                  {
                  DrawStarBang (610, 370,  -10 + i,     -10 + i, TX_ORANGE);
+                 Bang (550-i/4, 400-(i/2), 546-i/4, 404-(i/2), "Bang!!!", 30 + (i/4)*2, 0, TX_YELLOW, TX_BROWN);
                  }
               }
 
-         txSleep (5);
+         txSleep (50);
          }
    }
 
@@ -151,24 +170,31 @@ void DrawPlanet (int x, int y, int placeR, int PosPlanetX, int PosPlanetY, int R
     txCircle       (PosPlanetX, PosPlanetY,  R);
 
     }
+//---------
+void BackGround ( )
+    {
+    txSetFillColor (RGB (128, 255, 255));
+    txRectangle (1, 1, 1199, 350);
+    txClear( );
+    txSetFillColor (RGB (0, 190 ,50));
+    txRectangle (1, 350, 1199, 799);
+    }
 //-------
-void BackGround ()
+void CatHello ( )
     {
     txBegin ( );
 
     int i=1;
-    while (i<=125)
+    while (i<=120)
         {
-        txSetFillColor (RGB (128, 255, 255));
-        txRectangle (1, 1, 1199, 350);
-        txClear( );
-        txSetFillColor (RGB (0, 190 ,50));
-        txRectangle (1, 350, 1199, 799);
-
-        Les ((i%3)*8);
-
-        DrawCat (1200 - i*5, 400, 7*(i%2), 0, 2, 2, -3+3*(i%2), 3-3*(i%2), (i%3), (i%3),
+        BackGround ();
+        if (i<50)
+            {
+            CatSays (1120 - i*5, 400, "Hello! I'm glad to see you!", 14, TX_YELLOW);
+            }
+        DrawCat (1200 - i*5, 450, 7*(i%2), 0, 2, 2, -3+3*(i%2), 3-3*(i%2), (i%3), (i%3),
                  (i%2)*7, 7-(i%2)*7, 0, TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
+        Les ((i%3)*8);
 
         txSleep (100);
 
@@ -179,6 +205,7 @@ void BackGround ()
 //--------
 void Les (int wind)
     {
+
     DrawGrass ( 60, 480, - 5, -5, wind);
     DrawGrass ( 90, 320, -30, 15, wind);
     DrawGrass (410, 580,  10,  5, wind);
@@ -196,11 +223,7 @@ void RostLes ( )
     int t=0;
     while (t<10)
         {
-        txSetFillColor (RGB (128, 255, 255));
-        txRectangle (1, 1, 1199, 350);
-        txClear( );
-        txSetFillColor (RGB (0, 190 ,50));
-        txRectangle (1, 350, 1199, 799);
+        BackGround ( );
 
         DrawGrass ( 60, 480, -25 + t*2,   75 - t*8,  15 - (t%3*15));
         DrawGrass ( 90, 320, -20 + t-t*2, 75 - t*6, -10 + (t%3*10));
@@ -265,37 +288,33 @@ void CatWashing ( )
     int t=1;
     while (t<20)
         {
-        txSetFillColor (RGB (128, 255, 255));
-        txRectangle (1, 1, 1199, 350);
-        txClear( );
-        txSetFillColor (RGB (0, 190 ,50));
-        txRectangle (1, 350, 1199, 799);
+        BackGround ( );
 
-        Les ((t%3)*8);
-
-        DrawCat (600, 400, 7*(t%2), (t%4), 1, 1, -3+3*(t%2), 3-3*(t%2), 0, 0,
+        if (t<19)
+        {
+        CatSays (550, 400, "Wow! What this?", 14, TX_YELLOW);
+        }
+        DrawCat (600, 450, 7*(t%2), (t%4), 1, 1, -3+3*(t%2), 3-3*(t%2), 0, 0,
                   0,    0, 0, TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
+        Les ((t%3)*8);
 
         txSleep (100);
 
         t++;
         }
-
-    DrawCat     (600, 400, 7,       1,     2, 2,  3,         3,         1, 1,
+    CatSays     (550, 400, "Frrr! My paw", 14, TX_YELLOW);
+    DrawCat     (600, 450, 7,       1,     2, 2,  3,         3,         1, 1,
                   50,  50, 0, TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
-    txSleep (200);
+    txSleep (700);
     t=21;
     while (t<40)
         {
-        txSetFillColor (RGB (128, 255, 255));
-        txRectangle (1, 1, 1199, 350);
-        txClear( );
-        txSetFillColor (RGB (0, 190 ,50));
-        txRectangle (1, 350, 1199, 799);
+        BackGround ( );
 
-        Les ((t%3)*8);
-        DrawCat  (600, 400, 7,       1,     2, 2,  3,         3,         1, 1,
+        CatSays  (500, 350, "Oh! Mr-mr-mr...", 14, TX_YELLOW);
+        DrawCat  (550, 400, 7,       1,     2, 2,  3,         3,         1, 1,
                     0, 45*(t%2), 2*(t%2), TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
+        Les ((t%3)*8);
         txSleep (500);
         t++;
         }
@@ -308,12 +327,13 @@ void GoCat( )
     txBegin ();
 
     int i=1;
-    while (i<=100)
+    while (i<=150)
         {
         BackGround ( );
-        DrawCat (1200 - i*5, 400, 7*(i%2), 0, 2, 2, -3+3*(i%2), 3-3*(i%2), (i%3), (i%3),
-                 (i%2)*7, 7-(i%2)*7, 0, TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
 
+        DrawCat (550 + i*5, 400, 7*(i%2), 1, 2, 2, -3+3*(i%2), 3-3*(i%2), (i%3), (i%3),
+                 (i%2)*7, 7-(i%2)*7, 0, TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
+        Les ((i%3)*5);
         txSleep (100);
          i++;
         }
@@ -321,6 +341,13 @@ void GoCat( )
     }
 
 //--------
+void CatSays (int x, int y, const char* text, int sizeChar, COLORREF colorText)
+    {
+    txSetColor (colorText);
+    txSelectFont ("Arial Black", sizeChar);
+    txTextOut (x, y, text);
+    }
+//-----------------------------------
 void DrawCat (int x, int y, int UpHvost, int GoNose, int sizeLeftEye, int sizeRightEye, int UhoLDown, int UhoRDown, int ZrachkiL, int ZrachkiR,
               int LlapkaUp, int RlapkaUp, int Yazik, COLORREF colorCat, COLORREF colorNose, COLORREF colorLapki, COLORREF colorEyes)
     {
@@ -355,3 +382,13 @@ void DrawCat (int x, int y, int UpHvost, int GoNose, int sizeLeftEye, int sizeRi
      txEllipse        (x - 16, y + 50-LlapkaUp, x - 1, y + 38-LlapkaUp);
      txEllipse        (x + 16, y + 50-RlapkaUp, x + 1, y + 38-RlapkaUp);
      }
+//--------------------------------------------------------
+void Bang (int x, int y, int ShadowX, int ShadowY, const char* text, int sizeChar, int NewSizeCar, COLORREF colorText, COLORREF colorShadow)
+    {
+    txSetColor (colorShadow);
+    txSelectFont ("Arial Black", sizeChar+NewSizeCar);
+    txTextOut (ShadowX, ShadowY, text);
+    txSetColor (colorText);
+    txSelectFont ("Arial Black", sizeChar+NewSizeCar);
+    txTextOut (x, y, text);
+    }
