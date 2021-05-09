@@ -11,7 +11,7 @@ void DrawTree     (int x, int y, int sizeX,  int sizeY, int wind);
 void DrawCat      (int x, int y, int UpHvost,  int GoNose, int sizeLeftEye, int sizeRightEye, int UhoLDown, int UhoRDown,int ZrachkiL, int ZrachkiR,
                    int LlapkaUp, int RlapkaUp, int Yazik, COLORREF colorCat, COLORREF colorNose, COLORREF colorLapki, COLORREF colorEyes);
 void Bang         (int x, int y, int ShadowX, int ShadowY, const char* text, int sizeChar, int NewSizeCar, COLORREF colorText, COLORREF colorShadow);
-void CatSays (int x, int y, const char* text, int sizeChar, COLORREF colorText);
+void CatSays      (int x, int y, const char* text, int sizeChar, COLORREF colorText);
 void Les          (int wind);
 void TitrNachalo    ( );
 void ThisStart      ( );
@@ -21,6 +21,8 @@ void CatHello       ( );
 void RostLes        ( );
 void GoCat          ( );
 void CatWashing     ( );
+void TitrNotEnd     ( );
+void TitrAboutMe    ( );
 
 //-------------------------------------------------------------------------
 int main( )
@@ -28,25 +30,24 @@ int main( )
     txCreateWindow (1200, 800);
     txSetFillColor (RGB (85, 70, 145));
 
-    //TitrNachalo ();
-    //ThisStart ( );
-    //PlanetRotates ( );
+    TitrNachalo    ( );
+    ThisStart      ( );
+    PlanetRotates  ( );
 
-    txSetFillColor (RGB (128, 255, 255));
-    txRectangle (1, 1, 1199, 350);
-    txClear( );
-    txSetFillColor (RGB (0, 190 ,50));
-    txRectangle (1, 350, 1199, 799);
+    BackGround     ( );
+    txSleep        (200);
 
-    //RostLes ( );
-    CatHello   ( );
-    CatWashing ( );
-    GoCat      ( );
+    RostLes        ( );
+    CatHello       ( );
+    CatWashing     ( );
+    GoCat          ( );
+    TitrNotEnd     ( );
+    TitrAboutMe    ( );
 
     return 0;
     }
 //--------------------------------------------------------------------------------------------------------
-void TitrNachalo ()
+void TitrNachalo ( )
     {
     txBegin ( );
     for (int t = 0; t<=20; t++)
@@ -120,7 +121,7 @@ void DrawStarBang (int x, int y, int sizeX, int sizeY, COLORREF colorST)
                      {x + (100 + sizeX), y + (110 + sizeY  )}, {x + (15 + sizeX /4), y + (50 + sizeY /2)}};
     txPolygon (Star, 14);
     }
-//--------
+//--------------------------------------------------------------------------------------------------------
 void PlanetRotates ( )
     {
 
@@ -154,7 +155,7 @@ void PlanetRotates ( )
 
      txEnd ();
     }
-//--------
+//--------------------------------------------------------------------------------------------------------
 void DrawPlanet (int x, int y, int placeR, int PosPlanetX, int PosPlanetY, int R, COLORREF colorPL )
     {
     txSetColor     (RGB (255, 255,   0));
@@ -170,7 +171,7 @@ void DrawPlanet (int x, int y, int placeR, int PosPlanetX, int PosPlanetY, int R
     txCircle       (PosPlanetX, PosPlanetY,  R);
 
     }
-//---------
+//--------------------------------------------------------------------------------------------------------
 void BackGround ( )
     {
     txSetFillColor (RGB (128, 255, 255));
@@ -179,7 +180,7 @@ void BackGround ( )
     txSetFillColor (RGB (0, 190 ,50));
     txRectangle (1, 350, 1199, 799);
     }
-//-------
+//--------------------------------------------------------------------------------------------------------
 void CatHello ( )
     {
     txBegin ( );
@@ -192,8 +193,8 @@ void CatHello ( )
             {
             CatSays (1120 - i*5, 400, "Hello! I'm glad to see you!", 14, TX_YELLOW);
             }
-        DrawCat (1200 - i*5, 450, 7*(i%2), 0, 2, 2, -3+3*(i%2), 3-3*(i%2), (i%3), (i%3),
-                 (i%2)*7, 7-(i%2)*7, 0, TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
+        DrawCat     (1200 - i*5, 450, 7*(i%2), 0, 2, 2, -3+3*(i%2), 3-3*(i%2), (i%3), (i%3),
+                    (i%2)*7, 7-(i%2)*7, 0, TX_GREY, TX_RED, TX_BLACK, TX_GREEN);
         Les ((i%3)*8);
 
         txSleep (100);
@@ -202,7 +203,7 @@ void CatHello ( )
         }
     txEnd ( );
     }
-//--------
+//--------------------------------------------------------------------------------------------------------
 void Les (int wind)
     {
 
@@ -215,7 +216,7 @@ void Les (int wind)
     DrawTree  (170, 400,  -5, -5, wind);
     DrawTree  (200, 700,   0,  2, wind);
     }
-//-------
+//--------------------------------------------------------------------------------------------------------
 void RostLes ( )
     {
     txBegin ( );
@@ -240,7 +241,7 @@ void RostLes ( )
         }
     txEnd ();
       }
-//---------
+//--------------------------------------------------------------------------------------------------------
 void DrawGrass (int x, int y, int SizeX, int SizeY, int wind)
      {
          txSetFillColor (RGB (0, 77, 19));
@@ -250,8 +251,8 @@ void DrawGrass (int x, int y, int SizeX, int SizeY, int wind)
                         {x+20+SizeX, y+85}};
          txPolygon (Tr, 7);
      }
-//---------
-void DrawTree(int x, int y, int sizeX, int sizeY, int wind)
+//--------------------------------------------------------------------------------------------------------
+void DrawTree  (int x, int y, int sizeX, int sizeY, int wind)
         {
         txSetFillColor (RGB (108, 0, 0));
         txRectangle (x- 27-sizeX*2, y+32+(32*sizeY/10), x+27+sizeX*2, y);
@@ -281,7 +282,7 @@ void DrawTree(int x, int y, int sizeX, int sizeY, int wind)
         txPolygon (ev2, 3);
         txPolygon (ev3, 3);
         }
-//-----------
+//--------------------------------------------------------------------------------------------------------
 void CatWashing ( )
     {
     txBegin ( );
@@ -321,7 +322,7 @@ void CatWashing ( )
     txEnd ( );
     }
 
-//-----------
+//--------------------------------------------------------------------------------------------------------
 void GoCat( )
     {
     txBegin ();
@@ -340,15 +341,15 @@ void GoCat( )
     txEnd ();
     }
 
-//--------
-void CatSays (int x, int y, const char* text, int sizeChar, COLORREF colorText)
+//--------------------------------------------------------------------------------------------------------
+void CatSays   (int x, int y, const char* text, int sizeChar, COLORREF colorText)
     {
     txSetColor (colorText);
     txSelectFont ("Arial Black", sizeChar);
     txTextOut (x, y, text);
     }
-//-----------------------------------
-void DrawCat (int x, int y, int UpHvost, int GoNose, int sizeLeftEye, int sizeRightEye, int UhoLDown, int UhoRDown, int ZrachkiL, int ZrachkiR,
+//--------------------------------------------------------------------------------------------------------
+void DrawCat   (int x, int y, int UpHvost, int GoNose, int sizeLeftEye, int sizeRightEye, int UhoLDown, int UhoRDown, int ZrachkiL, int ZrachkiR,
               int LlapkaUp, int RlapkaUp, int Yazik, COLORREF colorCat, COLORREF colorNose, COLORREF colorLapki, COLORREF colorEyes)
     {
      txSetColor     (colorCat);
@@ -382,7 +383,7 @@ void DrawCat (int x, int y, int UpHvost, int GoNose, int sizeLeftEye, int sizeRi
      txEllipse        (x - 16, y + 50-LlapkaUp, x - 1, y + 38-LlapkaUp);
      txEllipse        (x + 16, y + 50-RlapkaUp, x + 1, y + 38-RlapkaUp);
      }
-//--------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 void Bang (int x, int y, int ShadowX, int ShadowY, const char* text, int sizeChar, int NewSizeCar, COLORREF colorText, COLORREF colorShadow)
     {
     txSetColor (colorShadow);
@@ -392,3 +393,33 @@ void Bang (int x, int y, int ShadowX, int ShadowY, const char* text, int sizeCha
     txSelectFont ("Arial Black", sizeChar+NewSizeCar);
     txTextOut (x, y, text);
     }
+
+//--------------------------------------------------------------------------------------------------------
+void TitrNotEnd ( )
+    {
+    txBegin ( );
+    for (int t = 0; t<=20; t++)
+        {
+        BackGround ( );
+        Les ((t%3)*6);
+
+        Bang (900-t*25, 10+t*10, 896-t*25, 14+t*10, "To be continued...", 30+t*4, 0, TX_YELLOW, TX_BROWN);
+        txSleep (50);
+        }
+    txEnd ( );
+    txSleep (1000);
+    }
+void TitrAboutMe ( )
+    {
+
+    txSetColor (TX_BLUE);
+    txSelectFont ("Arial Black", 22);
+    txTextOut (800, 600, "Film by Belskaia Evgeniia");
+    txSleep   (300);
+    txTextOut (800, 640, "teacher of informatics");
+    txSleep   (300);
+    txTextOut (800, 680, "scholl ¹2 of Pavlovskiy Posad");
+    txSleep   (300);
+    txTextOut (550, 750, "may, 2021");
+    }
+
